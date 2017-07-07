@@ -31,7 +31,7 @@ public class InteractiveSprite extends InputAdapter implements ComplexSprite {
 
     @Override
     public int getY() {
-        return yPos;
+        return yPos ;
     }
 
     @Override

@@ -5,10 +5,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.game.BackgroundHandler;
-import com.mygdx.game.ComplexSprite;
-import com.mygdx.game.Game3a;
-import com.mygdx.game.TestWalkerSprite;
+import com.mygdx.game.*;
 
 import java.util.HashSet;
 
@@ -20,18 +17,25 @@ public class MainMenuScreen extends ScreenAdapter {
     private HashSet<ComplexSprite> sprites;
     Game3a context;
     TestWalkerSprite testSprite;
+    TestStaticSprite testStatic;
     InputMultiplexer menuDispatcher;
 
     public MainMenuScreen(Game3a context){
         sprites = new HashSet<ComplexSprite>();
         this.context = context;
         testSprite = new TestWalkerSprite(new Texture("professional.png"), 0, 0);
+        testStatic = new TestStaticSprite(new Texture("static.png"), 30, 30);
         menuDispatcher = new InputMultiplexer();
+
         sprites.add(testSprite);
+        sprites.add(testStatic);
+
         menuDispatcher.addProcessor(testSprite);
         menuDispatcher.addProcessor(new BackgroundHandler(context));
         Gdx.input.setInputProcessor(menuDispatcher);
-        context.cam.position.set(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, .5f);
+
+        context.cam.position.set(testSprite.getX(), testSprite.getY(), .5f);
+//        context.cam.position.set(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, .5f);
     }
 
     /**
@@ -59,6 +63,8 @@ public class MainMenuScreen extends ScreenAdapter {
             context.batch.draw(sprite.getTexture(), sprite.getX(), sprite.getY());
         }
         context.batch.end();
+
+        context.cam.position.set(testSprite.getX() + (testSprite.getTexture().getWidth() / 2) , testSprite.getY() + (testSprite.getTexture().getHeight() / 2), .5f);
 
     }
 }

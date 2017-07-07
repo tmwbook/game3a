@@ -10,6 +10,7 @@ public interface ComplexSprite {
 
     /**
      * Internally update the sprite's fields
+     * TODO(Tom): should this be for all sprites?
      */
     void update();
 
